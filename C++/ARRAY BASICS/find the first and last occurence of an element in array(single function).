@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int occurrence(vector<int> & arr, int target, bool findfirst) {
+    int low= 0, high = arr.size() - 1, ans=-1;
+    while(low<=high) {
+        int mid = low + (high-low)/2;
+        if(arr[mid]== target){
+            ans = mid;
+           if(findfirst) {
+               high = mid -1;   // go left
+           } else{
+               low = mid +1;   // go right
+           }
+        }
+        else if(arr[mid] < target){
+            low = mid + 1;
+            
+        }
+        else{
+            high = mid - 1;
+        }
+}
+            return ans;
+}       
+            int main() {
+    vector<int> arr = {1, 2, 2, 2, 4, 4, 4, 4, 6};
+    int target = 4;
+
+    int first = occurrence(arr, target, true);   //find first
+    int last  = occurrence(arr, target, false);  // find last
+
+    if (first == -1) {
+        cout << "Count = 0 (not found)" << endl;
+         }   else {
+             cout << "First = " << first << ", Last = " << last << endl;
+              cout << "Count = " << (last - first + 1) << endl;
+    }
+
+    return 0;
+}
